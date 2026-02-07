@@ -14,7 +14,12 @@ const config: Config = {
   projectName: 'hlavi-docs',
 
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
+
+  markdown: {
+    hooks: {
+      onBrokenMarkdownLinks: 'warn',
+    },
+  },
 
   i18n: {
     defaultLocale: 'en',
@@ -38,7 +43,7 @@ const config: Config = {
   ],
 
   themeConfig: {
-    image: 'img/hlavi-social-card.jpg',
+    image: 'img/hlavi-social-card.svg',
     navbar: {
       title: 'Hlavi',
       logo: {
@@ -105,13 +110,13 @@ const config: Config = {
               href: 'https://hlavi.com',
             },
             {
-              label: 'Mmuhlari Holdings',
+              label: 'M Muhlari Holdings',
               href: 'https://www.mmuhlariholdings.co.za',
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Mmuhlari Holdings. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} M Muhlari Holdings. Built with Docusaurus.`,
     },
     prism: {
       theme: prismThemes.github,
