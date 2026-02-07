@@ -55,8 +55,8 @@ hlavi tickets list
 ╭─────────┬──────────────────────────┬─────────────┬─────╮
 │ ID      │ Title                    │ Status      │ ACs │
 ├─────────┼──────────────────────────┼─────────────┼─────┤
-│ TIK001  │ Implement authentication │ In Progress │ 2/3 │
-│ TIK002  │ Add user dashboard       │ New         │ 0/0 │
+│ HLA1  │ Implement authentication │ In Progress │ 2/3 │
+│ HLA2  │ Add user dashboard       │ New         │ 0/0 │
 ╰─────────┴──────────────────────────┴─────────────┴─────╯
 ```
 
@@ -75,7 +75,7 @@ hlavi tickets create <title>
 
 ```bash
 $ hlavi tickets create "Add dark mode support"
-✓ Created ticket TIK003
+✓ Created ticket HLA3
 ```
 
 #### show
@@ -87,14 +87,14 @@ hlavi tickets show <id>
 ```
 
 **Arguments:**
-- `<id>` - Ticket ID (e.g., TIK001)
+- `<id>` - Ticket ID (e.g., HLA1)
 
 **Example:**
 
 ```bash
-$ hlavi tickets show TIK001
+$ hlavi tickets show HLA1
 
-Ticket TIK001
+Ticket HLA1
 ──────────────────────────────────────────────────
 Title: Implement authentication
 Status: In Progress
@@ -132,22 +132,22 @@ hlavi tickets edit <id> [OPTIONS]
 
 Set description:
 ```bash
-hlavi tickets edit TIK001 -d "Implement JWT-based auth"
+hlavi tickets edit HLA1 -d "Implement JWT-based auth"
 ```
 
 Add acceptance criteria:
 ```bash
-hlavi tickets edit TIK001 --ac "User can reset password"
+hlavi tickets edit HLA1 --ac "User can reset password"
 ```
 
 Remove acceptance criterion by index:
 ```bash
-hlavi tickets edit TIK001 --remove-ac 2
+hlavi tickets edit HLA1 --remove-ac 2
 ```
 
 Remove acceptance criterion by text:
 ```bash
-hlavi tickets edit TIK001 --remove-ac "User can reset password"
+hlavi tickets edit HLA1 --remove-ac "User can reset password"
 ```
 
 #### delete
@@ -167,14 +167,14 @@ hlavi tickets delete <id> [OPTIONS]
 **Example:**
 
 ```bash
-$ hlavi tickets delete TIK003
-Delete ticket TIK003? [y/N] y
-✓ Deleted ticket TIK003
+$ hlavi tickets delete HLA3
+Delete ticket HLA3? [y/N] y
+✓ Deleted ticket HLA3
 ```
 
 With force flag:
 ```bash
-hlavi tickets delete TIK003 --force
+hlavi tickets delete HLA3 --force
 ```
 
 ## hlavi board

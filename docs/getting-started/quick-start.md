@@ -35,7 +35,7 @@ hlavi tickets create "Implement user authentication"
 You'll see output like:
 
 ```
-✓ Created ticket TIK001
+✓ Created ticket HLA1
 ```
 
 ## Add Details to Your Ticket
@@ -43,15 +43,15 @@ You'll see output like:
 Add a description:
 
 ```bash
-hlavi tickets edit TIK001 -d "Add JWT-based authentication with login and logout"
+hlavi tickets edit HLA1 -d "Add JWT-based authentication with login and logout"
 ```
 
 Add acceptance criteria:
 
 ```bash
-hlavi tickets edit TIK001 --ac "User can log in with email and password"
-hlavi tickets edit TIK001 --ac "User can log out"
-hlavi tickets edit TIK001 --ac "JWT token expires after 24 hours"
+hlavi tickets edit HLA1 --ac "User can log in with email and password"
+hlavi tickets edit HLA1 --ac "User can log out"
+hlavi tickets edit HLA1 --ac "JWT token expires after 24 hours"
 ```
 
 ## View Your Tickets
@@ -65,7 +65,7 @@ hlavi tickets list
 View detailed information about a ticket:
 
 ```bash
-hlavi tickets show TIK001
+hlavi tickets show HLA1
 ```
 
 ## What's Next?

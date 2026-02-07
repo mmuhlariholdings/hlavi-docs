@@ -73,7 +73,7 @@ If the agent's work isn't acceptable:
 3. The agent will read the feedback and retry
 
 ```bash
-hlavi tickets edit TIK001 --rejection "Tests are failing"
+hlavi tickets edit HLA1 --rejection "Tests are failing"
 ```
 
 ## Limitations

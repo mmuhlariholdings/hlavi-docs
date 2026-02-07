@@ -42,14 +42,14 @@ hlavi init
 hlavi tickets create "Add user authentication"
 
 # Add acceptance criteria
-hlavi tickets edit TIK001 --ac "User can log in"
-hlavi tickets edit TIK001 --ac "User can log out"
+hlavi tickets edit HLA1 --ac "User can log in"
+hlavi tickets edit HLA1 --ac "User can log out"
 
 # View your tickets
 hlavi tickets list
 
 # Let the AI agent work on it
-hlavi agent start TIK001
+hlavi agent start HLA1
 ```
 
 ## Architecture
