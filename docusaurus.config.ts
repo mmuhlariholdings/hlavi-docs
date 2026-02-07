@@ -110,13 +110,13 @@ const config: Config = {
               href: 'https://hlavi.com',
             },
             {
-              label: 'M Muhlari Holdings',
+              label: 'M Muhlari Holdings (Pty) Ltd',
               href: 'https://www.mmuhlariholdings.co.za',
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} M Muhlari Holdings. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} M Muhlari Holdings (Pty) Ltd. Built with Docusaurus.`,
     },
     prism: {
       theme: prismThemes.github,
