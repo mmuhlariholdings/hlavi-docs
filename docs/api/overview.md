@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# API Overview
+# Overview
 
 Hlavi provides an HTTP API for integration with web and mobile applications.
 

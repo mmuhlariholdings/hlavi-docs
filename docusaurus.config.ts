@@ -7,8 +7,8 @@ const config: Config = {
   tagline: 'CLI-based kanban task management with AI agent support',
   favicon: 'img/favicon.ico',
 
-  url: 'https://docs.hlavi.com',
-  baseUrl: '/',
+  url: 'https://mmuhlariholdings.github.io',
+  baseUrl: '/hlavi-docs/',
 
   organizationName: 'mmuhlariholdings',
   projectName: 'hlavi-docs',

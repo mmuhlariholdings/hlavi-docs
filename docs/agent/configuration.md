@@ -2,7 +2,7 @@
 sidebar_position: 2
 ---
 
-# Agent Configuration
+# Configuration
 
 How to configure the AI agent.
 

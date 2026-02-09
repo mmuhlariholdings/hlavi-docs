@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# CLI Commands
+# Commands
 
 Complete reference for all Hlavi CLI commands.
 
@@ -62,7 +62,7 @@ hlavi tickets list
 
 #### create
 
-Create a new ticket.
+Create a new ticket with a title.
 
 ```bash
 hlavi tickets create <title>
@@ -78,6 +78,8 @@ $ hlavi tickets create "Add dark mode support"
 ✓ Created ticket HLA3
 ```
 
+After creating a ticket, use `hlavi tickets edit` to add description, dates, and acceptance criteria.
+
 #### show
 
 Display detailed information about a ticket.
@@ -87,7 +89,7 @@ hlavi tickets show <id>
 ```
 
 **Arguments:**
-- `<id>` - Ticket ID (e.g., HLA1)
+- `<id>` - Ticket ID (e.g., HLA1, hla1, or Hla1 - case insensitive)
 
 **Example:**
 
@@ -110,7 +112,70 @@ Acceptance Criteria:
 Metadata:
   Created: 2024-01-15 10:30:00
   Updated: 2024-01-15 14:20:00
+  Start Date: 2024-01-15
+  End Date: 2024-01-22
 ```
+
+:::tip Case-Insensitive Ticket IDs
+Ticket IDs are case-insensitive. You can use `HLA1`, `hla1`, or `Hla1` - they all refer to the same ticket.
+:::
+
+#### search
+
+Search for tickets by title, description, or acceptance criteria.
+
+```bash
+hlavi tickets search <query>
+```
+
+**Arguments:**
+- `<query>` - Search query (case-insensitive)
+
+**What it searches:**
+- Ticket titles
+- Ticket descriptions
+- Acceptance criteria descriptions
+
+**Examples:**
+
+Search for tickets about authentication:
+```bash
+$ hlavi tickets search authentication
+
+✓ 2 ticket(s) matching "authentication"
+
+╭──────┬─────────────────────────┬─────────────┬─────╮
+│ ID   │ Title                   │ Status      │ ACs │
+├──────┼─────────────────────────┼─────────────┼─────┤
+│ HLA1 │ Implement authentication│ In Progress │ 2/3 │
+│ HLA5 │ Add OAuth authentication│ New         │ 0/2 │
+╰──────┴─────────────────────────┴─────────────┴─────╯
+```
+
+Case-insensitive search:
+```bash
+# These all return the same results
+hlavi tickets search LOGIN
+hlavi tickets search login
+hlavi tickets search Login
+```
+
+Search in descriptions:
+```bash
+hlavi tickets search "JWT token"
+```
+
+Search in acceptance criteria:
+```bash
+hlavi tickets search "password reset"
+```
+
+:::info Search Tips
+- The search is case-insensitive
+- Searches across title, description, and all acceptance criteria
+- Use quotes for multi-word queries
+- Empty results will display a helpful message
+:::
 
 #### edit
 
@@ -121,33 +186,84 @@ hlavi tickets edit <id> [OPTIONS]
 ```
 
 **Arguments:**
-- `<id>` - Ticket ID (required)
+- `<id>` - Ticket ID (required, case-insensitive)
 
 **Options:**
+
+*Basic Properties:*
+- `-t, --title <text>` - Update ticket title
 - `-d, --description <text>` - Set ticket description
+
+*Date Management:*
+- `--start-date <date>` - Set start date (YYYY-MM-DD or RFC 3339 format)
+- `--end-date <date>` - Set end date (YYYY-MM-DD or RFC 3339 format)
+- `--clear-start-date` - Clear the start date
+- `--clear-end-date` - Clear the end date
+
+*Acceptance Criteria:*
 - `--ac <text>` - Add acceptance criterion
-- `--remove-ac <text|number>` - Remove acceptance criterion
+- `--remove-ac <text|number>` - Remove acceptance criterion by description or ID
+- `--complete-ac <number>` - Mark acceptance criterion as complete
+- `--incomplete-ac <number>` - Mark acceptance criterion as incomplete
+- `--toggle-ac <number>` - Toggle acceptance criterion completion status
 
 **Examples:**
+
+Update title:
+```bash
+hlavi tickets edit HLA1 --title "New ticket title"
+# or with short flag
+hlavi tickets edit hla1 -t "New ticket title"
+```
 
 Set description:
 ```bash
 hlavi tickets edit HLA1 -d "Implement JWT-based auth"
 ```
 
-Add acceptance criteria:
+Set start and end dates:
 ```bash
+# Using simple date format (YYYY-MM-DD)
+hlavi tickets edit HLA1 --start-date 2024-01-15 --end-date 2024-01-22
+
+# Using RFC 3339 format for specific times
+hlavi tickets edit HLA1 --start-date 2024-01-15T09:00:00Z --end-date 2024-01-22T17:00:00Z
+```
+
+Clear dates:
+```bash
+hlavi tickets edit HLA1 --clear-start-date
+hlavi tickets edit HLA1 --clear-end-date
+```
+
+Manage acceptance criteria:
+```bash
+# Add a new acceptance criterion
 hlavi tickets edit HLA1 --ac "User can reset password"
-```
 
-Remove acceptance criterion by index:
-```bash
+# Mark AC #2 as complete
+hlavi tickets edit HLA1 --complete-ac 2
+
+# Mark AC #1 as incomplete
+hlavi tickets edit HLA1 --incomplete-ac 1
+
+# Toggle AC #3 status
+hlavi tickets edit HLA1 --toggle-ac 3
+
+# Remove acceptance criterion by ID
 hlavi tickets edit HLA1 --remove-ac 2
+
+# Remove acceptance criterion by text
+hlavi tickets edit HLA1 --remove-ac "User can reset password"
 ```
 
-Remove acceptance criterion by text:
+Combine multiple operations:
 ```bash
-hlavi tickets edit HLA1 --remove-ac "User can reset password"
+hlavi tickets edit HLA1 \
+  --title "Updated Authentication" \
+  --start-date 2024-01-15 \
+  --end-date 2024-01-22 \
+  --ac "Add password strength meter"
 ```
 
 #### delete
@@ -159,7 +275,7 @@ hlavi tickets delete <id> [OPTIONS]
 ```
 
 **Arguments:**
-- `<id>` - Ticket ID (required)
+- `<id>` - Ticket ID (required, case-insensitive)
 
 **Options:**
 - `-f, --force` - Skip confirmation prompt

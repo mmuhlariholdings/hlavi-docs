@@ -2,7 +2,7 @@
 sidebar_position: 3
 ---
 
-# Execution Modes
+# Modes
 
 Understanding attended vs unattended modes.
 
