@@ -46,8 +46,15 @@ Manage tickets in your project.
 List all tickets in the project.
 
 ```bash
-hlavi tickets list
+hlavi tickets list [OPTIONS]
 ```
+
+**Options:**
+
+*Sorting:*
+- `--sort-by <field>` - Sort tickets by field (default: `id`)
+  - Valid fields: `id`, `title`, `status`, `created`, `updated`, `start`, `end`, `ac-progress`, `ac-count`
+- `--sort-order <order>` - Sort order: `asc` or `desc` (default: `asc`)
 
 **Output:**
 
@@ -59,6 +66,42 @@ hlavi tickets list
 │ HLA2  │ Add user dashboard       │ New         │ 0/0 │
 ╰─────────┴──────────────────────────┴─────────────┴─────╯
 ```
+
+**Sorting Examples:**
+
+```bash
+# Default: sort by ID ascending
+hlavi tickets list
+
+# Sort by status (New → Open → InProgress → Pending → Review → Done → Closed)
+hlavi tickets list --sort-by status
+
+# Sort by creation date, newest first
+hlavi tickets list --sort-by created --sort-order desc
+
+# Sort by title alphabetically
+hlavi tickets list --sort-by title --sort-order asc
+
+# Sort by acceptance criteria completion percentage
+hlavi tickets list --sort-by ac-progress --sort-order desc
+
+# Sort by start date (tickets without dates appear at end)
+hlavi tickets list --sort-by start
+```
+
+**Sort Fields Explained:**
+
+| Field | Description | Notes |
+|-------|-------------|-------|
+| `id` | Ticket ID (HLA1, HLA2, etc.) | Default sort |
+| `title` | Ticket title (alphabetically) | Case-insensitive |
+| `status` | Status by workflow progression | New → Open → InProgress → Pending → Review → Done → Closed |
+| `created` | Creation timestamp | Older first (asc) or newer first (desc) |
+| `updated` | Last update timestamp | Older first (asc) or newer first (desc) |
+| `start` | Start date | Tickets without dates appear at end |
+| `end` | End date | Tickets without dates appear at end |
+| `ac-progress` | Acceptance criteria completion % | Based on completed/total ratio |
+| `ac-count` | Total acceptance criteria count | Number of ACs regardless of completion |
 
 #### create
 
@@ -125,11 +168,18 @@ Ticket IDs are case-insensitive. You can use `HLA1`, `hla1`, or `Hla1` - they al
 Search for tickets by title, description, or acceptance criteria.
 
 ```bash
-hlavi tickets search <query>
+hlavi tickets search <query> [OPTIONS]
 ```
 
 **Arguments:**
 - `<query>` - Search query (case-insensitive)
+
+**Options:**
+
+*Sorting:*
+- `--sort-by <field>` - Sort tickets by field (default: `id`)
+  - Valid fields: `id`, `title`, `status`, `created`, `updated`, `start`, `end`, `ac-progress`, `ac-count`
+- `--sort-order <order>` - Sort order: `asc` or `desc` (default: `asc`)
 
 **What it searches:**
 - Ticket titles
@@ -170,10 +220,23 @@ Search in acceptance criteria:
 hlavi tickets search "password reset"
 ```
 
+Search with sorting:
+```bash
+# Search and sort by most recently updated
+hlavi tickets search "auth" --sort-by updated --sort-order desc
+
+# Search and sort by title
+hlavi tickets search "api" --sort-by title
+
+# Search and sort by completion progress
+hlavi tickets search "feature" --sort-by ac-progress --sort-order desc
+```
+
 :::info Search Tips
 - The search is case-insensitive
 - Searches across title, description, and all acceptance criteria
 - Use quotes for multi-word queries
+- Results can be sorted using the same fields as `list` command
 - Empty results will display a helpful message
 :::
 
@@ -358,14 +421,21 @@ hlavi agent history
 View tickets in a timeline/Gantt chart view showing start and end dates.
 
 ```bash
-hlavi timeline
+hlavi timeline [OPTIONS]
 ```
+
+**Options:**
+
+*Sorting:*
+- `--sort-by <field>` - Override default sort (default: by start date)
+  - Valid fields: `id`, `title`, `status`, `created`, `updated`, `start`, `end`, `ac-progress`, `ac-count`
+- `--sort-order <order>` - Sort order: `asc` or `desc` (default: `asc`)
 
 **What it shows:**
 - Visual timeline of all tickets with dates
 - Horizontal bars representing ticket duration
 - Date scale showing the overall range
-- Tickets sorted by start date
+- Tickets sorted by start date (unless overridden)
 - List of tickets without dates
 
 **Example:**
@@ -394,13 +464,30 @@ Tickets without dates:
   HLA5 - Future task without dates
 ```
 
+**Sorting Examples:**
+
+```bash
+# Default: sort by start date chronologically
+hlavi timeline
+
+# Sort by status to group by workflow stage
+hlavi timeline --sort-by status
+
+# Sort by title alphabetically
+hlavi timeline --sort-by title
+
+# Sort by end date to see deadlines first
+hlavi timeline --sort-by end --sort-order desc
+```
+
 **Key features:**
 - Tickets with both start and end dates show full bars
 - Tickets with only start date show a point marker
 - Tickets with only end date show a point marker
 - Timeline automatically scales to fit all dated tickets
 - Tickets without any dates are listed separately
+- Default chronological sort can be overridden for different views
 
 :::tip Project Planning
-Use `hlavi timeline` to visualize your project schedule and identify overlapping work or gaps in your timeline.
+Use `hlavi timeline` to visualize your project schedule and identify overlapping work or gaps in your timeline. Use `--sort-by status` to group tickets by their workflow stage instead of chronological order.
 :::

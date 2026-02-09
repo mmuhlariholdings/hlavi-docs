@@ -126,6 +126,80 @@ hlavi tickets edit HLA1 --start-date 2024-02-15
 hlavi tickets edit HLA1 --start-date 2024-02-15T09:00:00Z
 ```
 
+## Sorting Options
+
+By default, the timeline sorts tickets by their start date in chronological order. You can override this to view the timeline in different ways.
+
+### Default Chronological Sort
+
+```bash
+# Default: sort by start date (earliest first)
+hlavi timeline
+```
+
+Tickets appear in the order they begin, making it easy to see the natural flow of work over time.
+
+### Custom Sorting
+
+Override the default sort to organize the timeline differently:
+
+```bash
+# Sort by status to group by workflow stage
+hlavi timeline --sort-by status
+
+# Sort by title alphabetically
+hlavi timeline --sort-by title
+
+# Sort by end date (deadlines first)
+hlavi timeline --sort-by end --sort-order desc
+
+# Sort by ID
+hlavi timeline --sort-by id
+```
+
+### Available Sort Fields
+
+All the same sort fields from `hlavi tickets list` are available:
+
+| Field | Description | Use Case |
+|-------|-------------|----------|
+| `start` | Start date (default) | Chronological project view |
+| `end` | End date | Focus on deadlines |
+| `status` | Workflow stage | Group by development phase |
+| `title` | Alphabetically | Easy lookup |
+| `id` | Ticket ID | Sequential view |
+| `created` | Creation date | See planning order |
+| `updated` | Last update | See active work |
+| `ac-progress` | Completion % | Focus on nearly-done tickets |
+| `ac-count` | AC count | Sort by complexity |
+
+### Sort Examples
+
+**Group by workflow stage:**
+```bash
+hlavi timeline --sort-by status
+```
+Shows all "New" tickets together, then "InProgress", then "Done", etc. Useful for seeing what stage each task is in regardless of dates.
+
+**View by deadlines:**
+```bash
+hlavi timeline --sort-by end --sort-order asc
+```
+Sorts tickets by end date to focus on upcoming deadlines.
+
+**Alphabetical organization:**
+```bash
+hlavi timeline --sort-by title
+```
+Useful when you have many tickets and want alphabetical grouping.
+
+:::tip Sorting Tips
+- Use the default chronological sort for natural project flow
+- Use `--sort-by status` to see tickets grouped by development phase
+- Use `--sort-by end` to focus on deadlines and deliverables
+- Combine sorting with date filters for focused timeline views
+:::
+
 ## Use Cases
 
 ### Project Planning
