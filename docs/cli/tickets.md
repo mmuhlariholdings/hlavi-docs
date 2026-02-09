@@ -208,6 +208,126 @@ Search looks in:
 - Shows matches across all searchable fields
 :::
 
+## Sorting Tickets
+
+Both `list` and `search` commands support flexible sorting options to help you organize and prioritize tickets.
+
+### Basic Sorting
+
+Sort tickets by any field:
+
+```bash
+# Sort by ID (default)
+hlavi tickets list
+
+# Sort by title alphabetically
+hlavi tickets list --sort-by title
+
+# Sort by creation date, newest first
+hlavi tickets list --sort-by created --sort-order desc
+
+# Sort by status in workflow order
+hlavi tickets list --sort-by status
+```
+
+### Available Sort Fields
+
+| Field | Description | Default Order |
+|-------|-------------|---------------|
+| `id` | Ticket ID (HLA1, HLA2, etc.) | Ascending |
+| `title` | Ticket title (alphabetically, case-insensitive) | Ascending |
+| `status` | Workflow progression (New → Open → InProgress → Pending → Review → Done → Closed) | Ascending |
+| `created` | Creation timestamp | Ascending (oldest first) |
+| `updated` | Last update timestamp | Ascending (oldest first) |
+| `start` | Start date (tickets without dates appear at end) | Ascending |
+| `end` | End date (tickets without dates appear at end) | Ascending |
+| `ac-progress` | Acceptance criteria completion percentage | Ascending (least complete first) |
+| `ac-count` | Total acceptance criteria count | Ascending (fewest first) |
+
+### Sort Order
+
+Specify sort direction with `--sort-order`:
+
+```bash
+# Ascending (default) - A to Z, oldest to newest, lowest to highest
+hlavi tickets list --sort-by title --sort-order asc
+
+# Descending - Z to A, newest to oldest, highest to lowest
+hlavi tickets list --sort-by created --sort-order desc
+```
+
+### Common Sorting Patterns
+
+**View tickets by priority:**
+```bash
+# Most recently updated (actively worked on)
+hlavi tickets list --sort-by updated --sort-order desc
+
+# Upcoming deadlines (earliest end dates first)
+hlavi tickets list --sort-by end --sort-order asc
+
+# Nearly complete (highest AC completion)
+hlavi tickets list --sort-by ac-progress --sort-order desc
+```
+
+**Organize by workflow:**
+```bash
+# Group by status (workflow order)
+hlavi tickets list --sort-by status
+
+# View oldest tickets first (technical debt)
+hlavi tickets list --sort-by created --sort-order asc
+```
+
+**Sort search results:**
+```bash
+# Search and sort by most recent updates
+hlavi tickets search "auth" --sort-by updated --sort-order desc
+
+# Search and sort alphabetically
+hlavi tickets search "api" --sort-by title
+```
+
+### Status Sort Order
+
+When sorting by `status`, tickets are ordered by workflow progression:
+
+1. **New** - Newly created tickets
+2. **Open** - Ready to start
+3. **InProgress** - Currently being worked on
+4. **Pending** - Waiting on dependencies
+5. **Review** - Under review
+6. **Done** - Work completed
+7. **Closed** - Archived
+
+This order reflects a typical kanban workflow, making it easy to see where tickets are in the development process.
+
+### Date Field Behavior
+
+When sorting by date fields (`start`, `end`, `created`, `updated`):
+
+- **Tickets with dates** always appear before tickets without dates
+- **Tickets without dates** are grouped at the end, regardless of sort order
+- This ensures dated tickets remain visible and prioritized
+
+Example:
+```bash
+# Sort by start date
+hlavi tickets list --sort-by start
+
+# Output order:
+# 1. Tickets with earliest start dates
+# 2. Tickets with later start dates
+# 3. All tickets without start dates (at the end)
+```
+
+:::tip Sorting Tips
+- Combine `--sort-by` and `--sort-order` for flexible organization
+- Sort by `ac-progress` to focus on tickets that need completion
+- Sort by `updated` to see what's actively being worked on
+- Sort by `status` for a workflow-oriented view
+:::
+
 ## Deleting Tickets
 
 Delete a ticket with confirmation:
