@@ -354,5 +354,6 @@ Technical approach:
 ## See Also
 
 - [CLI Commands Reference](./commands.md) - Complete command documentation
+- [Timeline View](./timeline.md) - Visualize tickets on a project timeline
 - [Board Management](./board.md) - Organize tickets on a kanban board
 - [Agent Integration](./agent.md) - Automate ticket work with AI agents
