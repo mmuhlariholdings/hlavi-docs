@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# AI Agent Overview
+# Overview
 
 Hlavi's AI agent can automatically complete tasks on your kanban board.
 

@@ -2,7 +2,7 @@
 sidebar_position: 4
 ---
 
-# Agent Commands
+# Agents
 
 AI agent CLI commands.
 

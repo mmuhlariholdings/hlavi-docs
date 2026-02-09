@@ -2,7 +2,7 @@
 sidebar_position: 2
 ---
 
-# API Endpoints
+# Endpoints
 
 Complete API endpoint reference.
 

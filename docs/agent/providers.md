@@ -2,7 +2,7 @@
 sidebar_position: 4
 ---
 
-# AI Providers
+# Providers
 
 Supported AI model providers.
 
