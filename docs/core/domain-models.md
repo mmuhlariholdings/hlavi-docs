@@ -6,18 +6,18 @@ sidebar_position: 3
 
 Core domain models that represent the business logic and data structures in Hlavi.
 
-## Ticket
+## Task
 
 The central entity representing a unit of work.
 
 ### Structure
 
 ```rust
-pub struct Ticket {
-    pub id: TicketId,
+pub struct Task {
+    pub id: TaskId,
     pub title: String,
     pub description: Option<String>,
-    pub status: TicketStatus,
+    pub status: TaskStatus,
     pub acceptance_criteria: Vec<AcceptanceCriteria>,
     pub created_at: DateTime<Utc>,
     pub updated_at: DateTime<Utc>,
@@ -32,14 +32,14 @@ pub struct Ticket {
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| `id` | `TicketId` | Yes | Unique identifier (e.g., HLA1) |
+| `id` | `TaskId` | Yes | Unique identifier (e.g., HLA1) |
 | `title` | `String` | Yes | Short, descriptive title |
 | `description` | `Option<String>` | No | Detailed explanation of the work |
-| `status` | `TicketStatus` | Yes | Current state (New, Open, InProgress, Done, Rejected) |
+| `status` | `TaskStatus` | Yes | Current state (New, Open, InProgress, Done, Rejected) |
 | `acceptance_criteria` | `Vec<AcceptanceCriteria>` | No | List of completion conditions |
 | `created_at` | `DateTime<Utc>` | Yes | Creation timestamp (UTC) |
 | `updated_at` | `DateTime<Utc>` | Yes | Last modification timestamp (UTC) |
-| `agent_assigned` | `bool` | Yes | Whether an AI agent is working on this ticket |
+| `agent_assigned` | `bool` | Yes | Whether an AI agent is working on this task |
 | `rejection_reason` | `Option<String>` | No | Reason for rejection if status is Rejected |
 | `start_date` | `Option<DateTime<Utc>>` | No | When work begins |
 | `end_date` | `Option<DateTime<Utc>>` | No | Target completion date |
@@ -49,8 +49,8 @@ pub struct Ticket {
 #### Core Methods
 
 ```rust
-// Create a new ticket
-pub fn new(id: TicketId, title: String) -> Self
+// Create a new task
+pub fn new(id: TaskId, title: String) -> Self
 
 // Update the title
 pub fn set_title(&mut self, title: String)
@@ -133,14 +133,14 @@ Tickets serialize to JSON with the following properties:
 }
 ```
 
-## TicketId
+## TaskId
 
-Unique identifier for tickets with case-insensitive parsing.
+Unique identifier for tasks with case-insensitive parsing.
 
 ### Structure
 
 ```rust
-pub struct TicketId(String);
+pub struct TaskId(String);
 ```
 
 ### Features
@@ -159,32 +159,32 @@ pub fn new(counter: u32) -> Self
 pub fn as_str(&self) -> &str
 
 // Parse from string (case-insensitive)
-impl FromStr for TicketId
+impl FromStr for TaskId
 ```
 
 ### Examples
 
 ```rust
 // Creating IDs
-let id = TicketId::new(1);  // Creates "HLA1"
+let id = TaskId::new(1);  // Creates "HLA1"
 
 // Parsing (case-insensitive)
-let id1 = TicketId::from_str("HLA1")?;   // OK
-let id2 = TicketId::from_str("hla1")?;   // OK, normalizes to "HLA1"
-let id3 = TicketId::from_str("Hla1")?;   // OK, normalizes to "HLA1"
+let id1 = TaskId::from_str("HLA1")?;   // OK
+let id2 = TaskId::from_str("hla1")?;   // OK, normalizes to "HLA1"
+let id3 = TaskId::from_str("Hla1")?;   // OK, normalizes to "HLA1"
 
 assert_eq!(id1, id2);  // true
 assert_eq!(id2, id3);  // true
 ```
 
-## TicketStatus
+## TaskStatus
 
-Enumeration of possible ticket states.
+Enumeration of possible task states.
 
 ### Variants
 
 ```rust
-pub enum TicketStatus {
+pub enum TaskStatus {
     New,         // Newly created, not yet started
     Open,        // Ready to be worked on
     InProgress,  // Currently being worked on
@@ -207,24 +207,24 @@ New → Open → InProgress → Done
 
 ```rust
 // Check if transition is valid
-pub fn can_transition_to(&self, target: &TicketStatus) -> bool
+pub fn can_transition_to(&self, target: &TaskStatus) -> bool
 ```
 
 ### Examples
 
 ```rust
-let status = TicketStatus::New;
+let status = TaskStatus::New;
 
 // Valid transitions
-assert!(status.can_transition_to(&TicketStatus::Open));
+assert!(status.can_transition_to(&TaskStatus::Open));
 
 // Invalid transitions
-assert!(!status.can_transition_to(&TicketStatus::Done));
+assert!(!status.can_transition_to(&TaskStatus::Done));
 ```
 
 ## AcceptanceCriteria
 
-Represents a specific condition that must be met for ticket completion.
+Represents a specific condition that must be met for task completion.
 
 ### Structure
 
@@ -240,7 +240,7 @@ pub struct AcceptanceCriteria {
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `id` | `usize` | Unique ID within the ticket (1, 2, 3, ...) |
+| `id` | `usize` | Unique ID within the task (1, 2, 3, ...) |
 | `description` | `String` | What needs to be achieved |
 | `completed` | `bool` | Whether this criterion is met |
 
@@ -278,7 +278,7 @@ Represents the kanban board and its configuration.
 
 ```rust
 pub struct Board {
-    pub next_ticket_id: u32,
+    pub next_task_id: u32,
     pub agent_config: Option<AgentConfig>,
 }
 ```
@@ -287,17 +287,17 @@ pub struct Board {
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `next_ticket_id` | `u32` | Counter for generating new ticket IDs |
+| `next_task_id` | `u32` | Counter for generating new task IDs |
 | `agent_config` | `Option<AgentConfig>` | AI agent configuration (if enabled) |
 
 ### Methods
 
 ```rust
-// Get the next ticket ID to be created
-pub fn next_ticket_id(&self) -> TicketId
+// Get the next task ID to be created
+pub fn next_task_id(&self) -> TaskId
 
-// Add a ticket to the board (increments counter)
-pub fn add_ticket(&mut self, id: TicketId)
+// Add a task to the board (increments counter)
+pub fn add_task(&mut self, id: TaskId)
 
 // Set agent configuration
 pub fn set_agent_config(&mut self, config: AgentConfig)
@@ -311,8 +311,8 @@ Main error type for domain operations.
 
 ```rust
 pub enum HlaviError {
-    // Ticket not found by ID
-    TicketNotFound(String),
+    // Task not found by ID
+    TaskNotFound(String),
 
     // Board not initialized
     BoardNotInitialized,
@@ -320,8 +320,8 @@ pub enum HlaviError {
     // Invalid status transition
     InvalidStatusTransition { from: String, to: String },
 
-    // Invalid ticket ID format
-    InvalidTicketId(String),
+    // Invalid task ID format
+    InvalidTaskId(String),
 
     // Date validation error
     InvalidDateRange { start: String, end: String },
@@ -349,16 +349,16 @@ pub enum HlaviError {
 
 ```rust
 // Date range validation
-let result = ticket.set_date_range(end_date, start_date);
+let result = task.set_date_range(end_date, start_date);
 // Returns: Err(HlaviError::InvalidDateRange { ... })
 
-// Invalid ticket ID
-let result = TicketId::from_str("INVALID123");
-// Returns: Err(HlaviError::InvalidTicketId("INVALID123"))
+// Invalid task ID
+let result = TaskId::from_str("INVALID123");
+// Returns: Err(HlaviError::InvalidTaskId("INVALID123"))
 
-// Ticket not found
-let result = storage.load_ticket(&ticket_id).await;
-// Returns: Err(HlaviError::TicketNotFound("HLA999"))
+// Task not found
+let result = storage.load_task(&ticket_id).await;
+// Returns: Err(HlaviError::TaskNotFound("HLA999"))
 ```
 
 ## Best Practices
@@ -380,7 +380,7 @@ let result = storage.load_ticket(&ticket_id).await;
 ### Status Management
 
 - Follow valid transition paths
-- Set rejection_reason when rejecting tickets
+- Set rejection_reason when rejecting tasks
 - Update status based on AC completion
 - Use agent_assigned flag to track automation
 

@@ -26,7 +26,7 @@ hlavi init
 **What it does:**
 - Creates `.hlavi/` directory
 - Generates default board configuration
-- Creates `tickets/` subdirectory
+- Creates `tasks/` subdirectory
 
 **Example:**
 
@@ -35,24 +35,24 @@ $ hlavi init
 ✓ Initialized Hlavi project in /home/user/my-project
 ```
 
-## hlavi tickets
+## hlavi tasks
 
-Manage tickets in your project.
+Manage tasks in your project.
 
 ### Subcommands
 
 #### list
 
-List all tickets in the project.
+List all tasks in the project.
 
 ```bash
-hlavi tickets list [OPTIONS]
+hlavi tasks list [OPTIONS]
 ```
 
 **Options:**
 
 *Sorting:*
-- `--sort-by <field>` - Sort tickets by field (default: `id`)
+- `--sort-by <field>` - Sort tasks by field (default: `id`)
   - Valid fields: `id`, `title`, `status`, `created`, `updated`, `start`, `end`, `ac-progress`, `ac-count`
 - `--sort-order <order>` - Sort order: `asc` or `desc` (default: `asc`)
 
@@ -71,29 +71,29 @@ hlavi tickets list [OPTIONS]
 
 ```bash
 # Default: sort by ID ascending
-hlavi tickets list
+hlavi tasks list
 
 # Sort by status (New → Open → InProgress → Pending → Review → Done → Closed)
-hlavi tickets list --sort-by status
+hlavi tasks list --sort-by status
 
 # Sort by creation date, newest first
-hlavi tickets list --sort-by created --sort-order desc
+hlavi tasks list --sort-by created --sort-order desc
 
 # Sort by title alphabetically
-hlavi tickets list --sort-by title --sort-order asc
+hlavi tasks list --sort-by title --sort-order asc
 
 # Sort by acceptance criteria completion percentage
-hlavi tickets list --sort-by ac-progress --sort-order desc
+hlavi tasks list --sort-by ac-progress --sort-order desc
 
-# Sort by start date (tickets without dates appear at end)
-hlavi tickets list --sort-by start
+# Sort by start date (tasks without dates appear at end)
+hlavi tasks list --sort-by start
 ```
 
 **Sort Fields Explained:**
 
 | Field | Description | Notes |
 |-------|-------------|-------|
-| `id` | Ticket ID (HLA1, HLA2, etc.) | Default sort |
+| `id` | Task ID (HLA1, HLA2, etc.) | Default sort |
 | `title` | Ticket title (alphabetically) | Case-insensitive |
 | `status` | Status by workflow progression | New → Open → InProgress → Pending → Review → Done → Closed |
 | `created` | Creation timestamp | Older first (asc) or newer first (desc) |
@@ -105,39 +105,39 @@ hlavi tickets list --sort-by start
 
 #### create
 
-Create a new ticket with a title.
+Create a new task with a title.
 
 ```bash
-hlavi tickets create <title>
+hlavi tasks create <title>
 ```
 
 **Arguments:**
-- `<title>` - Title of the ticket (required)
+- `<title>` - Title of the task (required)
 
 **Example:**
 
 ```bash
-$ hlavi tickets create "Add dark mode support"
-✓ Created ticket HLA3
+$ hlavi tasks create "Add dark mode support"
+✓ Created task HLA3
 ```
 
-After creating a ticket, use `hlavi tickets edit` to add description, dates, and acceptance criteria.
+After creating a task, use `hlavi tasks edit` to add description, dates, and acceptance criteria.
 
 #### show
 
-Display detailed information about a ticket.
+Display detailed information about a task.
 
 ```bash
-hlavi tickets show <id>
+hlavi tasks show <id>
 ```
 
 **Arguments:**
-- `<id>` - Ticket ID (e.g., HLA1, hla1, or Hla1 - case insensitive)
+- `<id>` - Task ID (e.g., HLA1, hla1, or Hla1 - case insensitive)
 
 **Example:**
 
 ```bash
-$ hlavi tickets show HLA1
+$ hlavi tasks show HLA1
 
 Ticket HLA1
 ──────────────────────────────────────────────────
@@ -159,16 +159,16 @@ Metadata:
   End Date: 2024-01-22
 ```
 
-:::tip Case-Insensitive Ticket IDs
-Ticket IDs are case-insensitive. You can use `HLA1`, `hla1`, or `Hla1` - they all refer to the same ticket.
+:::tip Case-Insensitive Task IDs
+Task IDs are case-insensitive. You can use `HLA1`, `hla1`, or `Hla1` - they all refer to the same task.
 :::
 
 #### search
 
-Search for tickets by title, description, or acceptance criteria.
+Search for tasks by title, description, or acceptance criteria.
 
 ```bash
-hlavi tickets search <query> [OPTIONS]
+hlavi tasks search <query> [OPTIONS]
 ```
 
 **Arguments:**
@@ -177,7 +177,7 @@ hlavi tickets search <query> [OPTIONS]
 **Options:**
 
 *Sorting:*
-- `--sort-by <field>` - Sort tickets by field (default: `id`)
+- `--sort-by <field>` - Sort tasks by field (default: `id`)
   - Valid fields: `id`, `title`, `status`, `created`, `updated`, `start`, `end`, `ac-progress`, `ac-count`
 - `--sort-order <order>` - Sort order: `asc` or `desc` (default: `asc`)
 
@@ -188,11 +188,11 @@ hlavi tickets search <query> [OPTIONS]
 
 **Examples:**
 
-Search for tickets about authentication:
+Search for tasks about authentication:
 ```bash
-$ hlavi tickets search authentication
+$ hlavi tasks search authentication
 
-✓ 2 ticket(s) matching "authentication"
+✓ 2 task(s) matching "authentication"
 
 ╭──────┬─────────────────────────┬─────────────┬─────╮
 │ ID   │ Title                   │ Status      │ ACs │
@@ -205,31 +205,31 @@ $ hlavi tickets search authentication
 Case-insensitive search:
 ```bash
 # These all return the same results
-hlavi tickets search LOGIN
-hlavi tickets search login
-hlavi tickets search Login
+hlavi tasks search LOGIN
+hlavi tasks search login
+hlavi tasks search Login
 ```
 
 Search in descriptions:
 ```bash
-hlavi tickets search "JWT token"
+hlavi tasks search "JWT token"
 ```
 
 Search in acceptance criteria:
 ```bash
-hlavi tickets search "password reset"
+hlavi tasks search "password reset"
 ```
 
 Search with sorting:
 ```bash
 # Search and sort by most recently updated
-hlavi tickets search "auth" --sort-by updated --sort-order desc
+hlavi tasks search "auth" --sort-by updated --sort-order desc
 
 # Search and sort by title
-hlavi tickets search "api" --sort-by title
+hlavi tasks search "api" --sort-by title
 
 # Search and sort by completion progress
-hlavi tickets search "feature" --sort-by ac-progress --sort-order desc
+hlavi tasks search "feature" --sort-by ac-progress --sort-order desc
 ```
 
 :::info Search Tips
@@ -242,20 +242,20 @@ hlavi tickets search "feature" --sort-by ac-progress --sort-order desc
 
 #### edit
 
-Edit a ticket's properties.
+Edit a task's properties.
 
 ```bash
-hlavi tickets edit <id> [OPTIONS]
+hlavi tasks edit <id> [OPTIONS]
 ```
 
 **Arguments:**
-- `<id>` - Ticket ID (required, case-insensitive)
+- `<id>` - Task ID (required, case-insensitive)
 
 **Options:**
 
 *Basic Properties:*
-- `-t, --title <text>` - Update ticket title
-- `-d, --description <text>` - Set ticket description
+- `-t, --title <text>` - Update task title
+- `-d, --description <text>` - Set task description
 
 *Date Management:*
 - `--start-date <date>` - Set start date (YYYY-MM-DD or RFC 3339 format)
@@ -274,55 +274,55 @@ hlavi tickets edit <id> [OPTIONS]
 
 Update title:
 ```bash
-hlavi tickets edit HLA1 --title "New ticket title"
+hlavi tasks edit HLA1 --title "New task title"
 # or with short flag
-hlavi tickets edit hla1 -t "New ticket title"
+hlavi tasks edit hla1 -t "New task title"
 ```
 
 Set description:
 ```bash
-hlavi tickets edit HLA1 -d "Implement JWT-based auth"
+hlavi tasks edit HLA1 -d "Implement JWT-based auth"
 ```
 
 Set start and end dates:
 ```bash
 # Using simple date format (YYYY-MM-DD)
-hlavi tickets edit HLA1 --start-date 2024-01-15 --end-date 2024-01-22
+hlavi tasks edit HLA1 --start-date 2024-01-15 --end-date 2024-01-22
 
 # Using RFC 3339 format for specific times
-hlavi tickets edit HLA1 --start-date 2024-01-15T09:00:00Z --end-date 2024-01-22T17:00:00Z
+hlavi tasks edit HLA1 --start-date 2024-01-15T09:00:00Z --end-date 2024-01-22T17:00:00Z
 ```
 
 Clear dates:
 ```bash
-hlavi tickets edit HLA1 --clear-start-date
-hlavi tickets edit HLA1 --clear-end-date
+hlavi tasks edit HLA1 --clear-start-date
+hlavi tasks edit HLA1 --clear-end-date
 ```
 
 Manage acceptance criteria:
 ```bash
 # Add a new acceptance criterion
-hlavi tickets edit HLA1 --ac "User can reset password"
+hlavi tasks edit HLA1 --ac "User can reset password"
 
 # Mark AC #2 as complete
-hlavi tickets edit HLA1 --complete-ac 2
+hlavi tasks edit HLA1 --complete-ac 2
 
 # Mark AC #1 as incomplete
-hlavi tickets edit HLA1 --incomplete-ac 1
+hlavi tasks edit HLA1 --incomplete-ac 1
 
 # Toggle AC #3 status
-hlavi tickets edit HLA1 --toggle-ac 3
+hlavi tasks edit HLA1 --toggle-ac 3
 
 # Remove acceptance criterion by ID
-hlavi tickets edit HLA1 --remove-ac 2
+hlavi tasks edit HLA1 --remove-ac 2
 
 # Remove acceptance criterion by text
-hlavi tickets edit HLA1 --remove-ac "User can reset password"
+hlavi tasks edit HLA1 --remove-ac "User can reset password"
 ```
 
 Combine multiple operations:
 ```bash
-hlavi tickets edit HLA1 \
+hlavi tasks edit HLA1 \
   --title "Updated Authentication" \
   --start-date 2024-01-15 \
   --end-date 2024-01-22 \
@@ -331,14 +331,14 @@ hlavi tickets edit HLA1 \
 
 #### delete
 
-Delete a ticket.
+Delete a task.
 
 ```bash
-hlavi tickets delete <id> [OPTIONS]
+hlavi tasks delete <id> [OPTIONS]
 ```
 
 **Arguments:**
-- `<id>` - Ticket ID (required, case-insensitive)
+- `<id>` - Task ID (required, case-insensitive)
 
 **Options:**
 - `-f, --force` - Skip confirmation prompt
@@ -346,14 +346,14 @@ hlavi tickets delete <id> [OPTIONS]
 **Example:**
 
 ```bash
-$ hlavi tickets delete HLA3
-Delete ticket HLA3? [y/N] y
-✓ Deleted ticket HLA3
+$ hlavi tasks delete HLA3
+Delete task HLA3? [y/N] y
+✓ Deleted task HLA3
 ```
 
 With force flag:
 ```bash
-hlavi tickets delete HLA3 --force
+hlavi tasks delete HLA3 --force
 ```
 
 ## hlavi board
@@ -394,10 +394,10 @@ hlavi agent configure
 
 #### start
 
-Start agent execution for a ticket (Coming soon).
+Start agent execution for a task (Coming soon).
 
 ```bash
-hlavi agent start <ticket-id>
+hlavi agent start <task-id>
 ```
 
 #### stop
@@ -418,7 +418,7 @@ hlavi agent history
 
 ## hlavi timeline
 
-View tickets in a timeline/Gantt chart view showing start and end dates.
+View tasks in a timeline/Gantt chart view showing start and end dates.
 
 ```bash
 hlavi timeline [OPTIONS]
@@ -432,11 +432,11 @@ hlavi timeline [OPTIONS]
 - `--sort-order <order>` - Sort order: `asc` or `desc` (default: `asc`)
 
 **What it shows:**
-- Visual timeline of all tickets with dates
-- Horizontal bars representing ticket duration
+- Visual timeline of all tasks with dates
+- Horizontal bars representing task duration
 - Date scale showing the overall range
 - Tickets sorted by start date (unless overridden)
-- List of tickets without dates
+- List of tasks without dates
 
 **Example:**
 
@@ -484,10 +484,10 @@ hlavi timeline --sort-by end --sort-order desc
 - Tickets with both start and end dates show full bars
 - Tickets with only start date show a point marker
 - Tickets with only end date show a point marker
-- Timeline automatically scales to fit all dated tickets
+- Timeline automatically scales to fit all dated tasks
 - Tickets without any dates are listed separately
 - Default chronological sort can be overridden for different views
 
 :::tip Project Planning
-Use `hlavi timeline` to visualize your project schedule and identify overlapping work or gaps in your timeline. Use `--sort-by status` to group tickets by their workflow stage instead of chronological order.
+Use `hlavi timeline` to visualize your project schedule and identify overlapping work or gaps in your timeline. Use `--sort-by status` to group tasks by their workflow stage instead of chronological order.
 :::

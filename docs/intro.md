@@ -9,7 +9,7 @@ Hlavi is a CLI-based kanban task management system with AI agent support.
 
 ## What is Hlavi?
 
-Hlavi helps you manage tasks directly from your terminal with support for AI-powered automation. Track your work on a kanban board, create tickets with acceptance criteria, and let AI agents complete tasks for you.
+Hlavi helps you manage tasks directly from your terminal with support for AI-powered automation. Track your work on a kanban board, create tasks with acceptance criteria, and let AI agents complete tasks for you.
 
 ## Key Features
 
@@ -38,15 +38,15 @@ Hlavi helps you manage tasks directly from your terminal with support for AI-pow
 # Initialize a project
 hlavi init
 
-# Create a ticket
-hlavi tickets create "Add user authentication"
+# Create a task
+hlavi tasks create "Add user authentication"
 
 # Add acceptance criteria
-hlavi tickets edit HLA1 --ac "User can log in"
-hlavi tickets edit HLA1 --ac "User can log out"
+hlavi tasks edit HLA1 --ac "User can log in"
+hlavi tasks edit HLA1 --ac "User can log out"
 
-# View your tickets
-hlavi tickets list
+# View your tasks
+hlavi tasks list
 
 # Let the AI agent work on it
 hlavi agent start HLA1

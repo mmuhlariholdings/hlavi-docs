@@ -8,7 +8,7 @@ Visualize your project schedule with Hlavi's timeline view - a Gantt chart-like 
 
 ## Overview
 
-The timeline command provides a visual representation of your tickets over time, making it easy to:
+The timeline command provides a visual representation of your tasks over time, making it easy to:
 
 - See the overall project duration
 - Identify overlapping tasks
@@ -18,7 +18,7 @@ The timeline command provides a visual representation of your tickets over time,
 
 ## Basic Usage
 
-Display the timeline for all tickets with dates:
+Display the timeline for all tasks with dates:
 
 ```bash
 hlavi timeline
@@ -44,7 +44,7 @@ Legend:
   ━ Duration
   ┫ End date
 
-Tickets without dates:
+Tasks without dates:
   HLA5 - Future task without dates
 ```
 
@@ -56,8 +56,8 @@ Tickets without dates:
 - Shows the overall date range (earliest start to latest end)
 - Displays a date scale with reference points
 
-**Ticket Bars:**
-- Each row represents one ticket
+**Task Bars:**
+- Each row represents one task
 - Bars are color-coded (green by default)
 - Position indicates when the task occurs
 - Length represents duration
@@ -67,49 +67,49 @@ Tickets without dates:
 - `━` represents the duration
 - `┫` marks the end date
 
-### How Tickets are Displayed
+### How Tasks are Displayed
 
-**Tickets with both dates:**
+**Tasks with both dates:**
 ```
 HLA1     ┣━━━━━━━━━━┫     Design authentication system
 ```
 Shows full duration from start to end.
 
-**Tickets with only start date:**
+**Tasks with only start date:**
 ```
 HLA2     ┣               Implement user login
 ```
 Displays as a point marker at the start date.
 
-**Tickets with only end date:**
+**Tasks with only end date:**
 ```
 HLA3                ┫    Add password reset
 ```
 Displays as a point marker at the end date.
 
-**Tickets without dates:**
+**Tasks without dates:**
 Listed separately below the timeline.
 
 ## Adding Dates to Tickets
 
-To see tickets in the timeline, they need start and/or end dates:
+To see tasks in the timeline, they need start and/or end dates:
 
 ### Set Both Dates
 
 ```bash
-hlavi tickets edit HLA1 --start-date 2024-02-01 --end-date 2024-02-15
+hlavi tasks edit HLA1 --start-date 2024-02-01 --end-date 2024-02-15
 ```
 
 ### Set Only Start Date
 
 ```bash
-hlavi tickets edit HLA2 --start-date 2024-02-03
+hlavi tasks edit HLA2 --start-date 2024-02-03
 ```
 
 ### Set Only End Date
 
 ```bash
-hlavi tickets edit HLA3 --end-date 2024-02-20
+hlavi tasks edit HLA3 --end-date 2024-02-20
 ```
 
 ### Date Formats
@@ -118,17 +118,17 @@ Two formats are supported:
 
 **Simple format (recommended for daily planning):**
 ```bash
-hlavi tickets edit HLA1 --start-date 2024-02-15
+hlavi tasks edit HLA1 --start-date 2024-02-15
 ```
 
 **RFC 3339 format (for specific times):**
 ```bash
-hlavi tickets edit HLA1 --start-date 2024-02-15T09:00:00Z
+hlavi tasks edit HLA1 --start-date 2024-02-15T09:00:00Z
 ```
 
 ## Sorting Options
 
-By default, the timeline sorts tickets by their start date in chronological order. You can override this to view the timeline in different ways.
+By default, the timeline sorts tasks by their start date in chronological order. You can override this to view the timeline in different ways.
 
 ### Default Chronological Sort
 
@@ -137,7 +137,7 @@ By default, the timeline sorts tickets by their start date in chronological orde
 hlavi timeline
 ```
 
-Tickets appear in the order they begin, making it easy to see the natural flow of work over time.
+Tasks appear in the order they begin, making it easy to see the natural flow of work over time.
 
 ### Custom Sorting
 
@@ -159,7 +159,7 @@ hlavi timeline --sort-by id
 
 ### Available Sort Fields
 
-All the same sort fields from `hlavi tickets list` are available:
+All the same sort fields from `hlavi tasks list` are available:
 
 | Field | Description | Use Case |
 |-------|-------------|----------|
@@ -167,10 +167,10 @@ All the same sort fields from `hlavi tickets list` are available:
 | `end` | End date | Focus on deadlines |
 | `status` | Workflow stage | Group by development phase |
 | `title` | Alphabetically | Easy lookup |
-| `id` | Ticket ID | Sequential view |
+| `id` | Task ID | Sequential view |
 | `created` | Creation date | See planning order |
 | `updated` | Last update | See active work |
-| `ac-progress` | Completion % | Focus on nearly-done tickets |
+| `ac-progress` | Completion % | Focus on nearly-done tasks |
 | `ac-count` | AC count | Sort by complexity |
 
 ### Sort Examples
@@ -179,23 +179,23 @@ All the same sort fields from `hlavi tickets list` are available:
 ```bash
 hlavi timeline --sort-by status
 ```
-Shows all "New" tickets together, then "InProgress", then "Done", etc. Useful for seeing what stage each task is in regardless of dates.
+Shows all "New" tasks together, then "InProgress", then "Done", etc. Useful for seeing what stage each task is in regardless of dates.
 
 **View by deadlines:**
 ```bash
 hlavi timeline --sort-by end --sort-order asc
 ```
-Sorts tickets by end date to focus on upcoming deadlines.
+Sorts tasks by end date to focus on upcoming deadlines.
 
 **Alphabetical organization:**
 ```bash
 hlavi timeline --sort-by title
 ```
-Useful when you have many tickets and want alphabetical grouping.
+Useful when you have many tasks and want alphabetical grouping.
 
 :::tip Sorting Tips
 - Use the default chronological sort for natural project flow
-- Use `--sort-by status` to see tickets grouped by development phase
+- Use `--sort-by status` to see tasks grouped by development phase
 - Use `--sort-by end` to focus on deadlines and deliverables
 - Combine sorting with date filters for focused timeline views
 :::
@@ -207,19 +207,19 @@ Useful when you have many tickets and want alphabetical grouping.
 Use the timeline to plan out a new project:
 
 ```bash
-# Create tickets
-hlavi tickets create "Requirements gathering"
-hlavi tickets create "System design"
-hlavi tickets create "Implementation"
-hlavi tickets create "Testing"
-hlavi tickets create "Deployment"
+# Create tasks
+hlavi tasks create "Requirements gathering"
+hlavi tasks create "System design"
+hlavi tasks create "Implementation"
+hlavi tasks create "Testing"
+hlavi tasks create "Deployment"
 
 # Add dates
-hlavi tickets edit HLA1 --start-date 2024-03-01 --end-date 2024-03-07
-hlavi tickets edit HLA2 --start-date 2024-03-08 --end-date 2024-03-14
-hlavi tickets edit HLA3 --start-date 2024-03-15 --end-date 2024-03-28
-hlavi tickets edit HLA4 --start-date 2024-03-29 --end-date 2024-04-04
-hlavi tickets edit HLA5 --start-date 2024-04-05 --end-date 2024-04-05
+hlavi tasks edit HLA1 --start-date 2024-03-01 --end-date 2024-03-07
+hlavi tasks edit HLA2 --start-date 2024-03-08 --end-date 2024-03-14
+hlavi tasks edit HLA3 --start-date 2024-03-15 --end-date 2024-03-28
+hlavi tasks edit HLA4 --start-date 2024-03-29 --end-date 2024-04-04
+hlavi tasks edit HLA5 --start-date 2024-04-05 --end-date 2024-04-05
 
 # View the timeline
 hlavi timeline
@@ -230,10 +230,10 @@ hlavi timeline
 Visualize work for a 2-week sprint:
 
 ```bash
-# Set sprint dates for tickets
-hlavi tickets edit HLA10 --start-date 2024-02-12 --end-date 2024-02-16
-hlavi tickets edit HLA11 --start-date 2024-02-12 --end-date 2024-02-20
-hlavi tickets edit HLA12 --start-date 2024-02-15 --end-date 2024-02-22
+# Set sprint dates for tasks
+hlavi tasks edit HLA10 --start-date 2024-02-12 --end-date 2024-02-16
+hlavi tasks edit HLA11 --start-date 2024-02-12 --end-date 2024-02-20
+hlavi tasks edit HLA12 --start-date 2024-02-15 --end-date 2024-02-22
 
 # Check the timeline
 hlavi timeline
@@ -250,14 +250,14 @@ Identify task sequences and dependencies:
 
 ```bash
 # Backend work
-hlavi tickets edit HLA20 --start-date 2024-03-01 --end-date 2024-03-10
-hlavi tickets edit HLA21 --start-date 2024-03-11 --end-date 2024-03-15
+hlavi tasks edit HLA20 --start-date 2024-03-01 --end-date 2024-03-10
+hlavi tasks edit HLA21 --start-date 2024-03-11 --end-date 2024-03-15
 
 # Frontend work (depends on backend)
-hlavi tickets edit HLA22 --start-date 2024-03-16 --end-date 2024-03-22
+hlavi tasks edit HLA22 --start-date 2024-03-16 --end-date 2024-03-22
 
 # Integration (depends on both)
-hlavi tickets edit HLA23 --start-date 2024-03-23 --end-date 2024-03-25
+hlavi tasks edit HLA23 --start-date 2024-03-23 --end-date 2024-03-25
 
 hlavi timeline
 ```
@@ -277,7 +277,7 @@ Compare planned vs actual completion:
 
 ### Automatic Scaling
 
-The timeline automatically scales to fit all tickets:
+The timeline automatically scales to fit all tasks:
 
 - **Short projects** (few days): Each character represents hours
 - **Medium projects** (weeks): Each character represents days
@@ -285,7 +285,7 @@ The timeline automatically scales to fit all tickets:
 
 ### Sorting
 
-Tickets are automatically sorted by start date (earliest first). This provides a natural chronological view of the project.
+Tasks are automatically sorted by start date (earliest first). This provides a natural chronological view of the project.
 
 ### Fixed Width
 
@@ -341,11 +341,11 @@ These may be addressed in future versions.
 
 ### With Search
 
-Find specific tickets before viewing timeline:
+Find specific tasks before viewing timeline:
 
 ```bash
-# Find authentication tickets
-hlavi tickets search auth
+# Find authentication tasks
+hlavi tasks search auth
 
 # View timeline
 hlavi timeline
@@ -359,9 +359,9 @@ Update dates directly from timeline findings:
 # View current timeline
 hlavi timeline
 
-# Adjust overlapping tickets
-hlavi tickets edit HLA3 --start-date 2024-02-15
-hlavi tickets edit HLA4 --end-date 2024-02-25
+# Adjust overlapping tasks
+hlavi tasks edit HLA3 --start-date 2024-02-15
+hlavi tasks edit HLA4 --end-date 2024-02-25
 
 # Verify changes
 hlavi timeline
@@ -372,10 +372,10 @@ hlavi timeline
 Compare table view with timeline view:
 
 ```bash
-# See all tickets in table
-hlavi tickets list
+# See all tasks in table
+hlavi tasks list
 
-# See dated tickets in timeline
+# See dated tasks in timeline
 hlavi timeline
 ```
 
@@ -383,11 +383,11 @@ hlavi timeline
 
 ### Milestone Tickets
 
-Use single-day tickets for milestones:
+Use single-day tasks for milestones:
 
 ```bash
-hlavi tickets create "Sprint 1 Demo"
-hlavi tickets edit HLA99 --start-date 2024-02-20 --end-date 2024-02-20
+hlavi tasks create "Sprint 1 Demo"
+hlavi tasks edit HLA99 --start-date 2024-02-20 --end-date 2024-02-20
 ```
 
 ### Task Sequences
@@ -395,9 +395,9 @@ hlavi tickets edit HLA99 --start-date 2024-02-20 --end-date 2024-02-20
 Create sequential tasks for phased work:
 
 ```bash
-hlavi tickets edit HLA10 --start-date 2024-03-01 --end-date 2024-03-05
-hlavi tickets edit HLA11 --start-date 2024-03-06 --end-date 2024-03-10
-hlavi tickets edit HLA12 --start-date 2024-03-11 --end-date 2024-03-15
+hlavi tasks edit HLA10 --start-date 2024-03-01 --end-date 2024-03-05
+hlavi tasks edit HLA11 --start-date 2024-03-06 --end-date 2024-03-10
+hlavi tasks edit HLA12 --start-date 2024-03-11 --end-date 2024-03-15
 ```
 
 ### Parallel Work
@@ -406,14 +406,14 @@ Schedule concurrent tasks for different team members:
 
 ```bash
 # Alice's work
-hlavi tickets edit HLA20 --start-date 2024-03-01 --end-date 2024-03-10
+hlavi tasks edit HLA20 --start-date 2024-03-01 --end-date 2024-03-10
 
 # Bob's work (parallel)
-hlavi tickets edit HLA21 --start-date 2024-03-01 --end-date 2024-03-08
+hlavi tasks edit HLA21 --start-date 2024-03-01 --end-date 2024-03-08
 ```
 
 ## See Also
 
-- [Ticket Management](./tickets.md) - Creating and managing tickets
+- [Task Management](./tasks.md) - Creating and managing tasks
 - [CLI Commands](./commands.md) - Complete command reference
-- [Date Management](./tickets.md#managing-dates) - Setting and clearing dates
+- [Date Management](./tasks.md#managing-dates) - Setting and clearing dates

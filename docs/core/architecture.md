@@ -33,7 +33,7 @@ Hlavi is built with a modular architecture:
 
 The heart of Hlavi. A Rust library containing:
 
-- **Domain Models**: Ticket, Board, AcceptanceCriteria
+- **Domain Models**: Task, Board, AcceptanceCriteria
 - **Business Logic**: Status transitions, validation
 - **Storage Abstraction**: Pluggable storage backends
 

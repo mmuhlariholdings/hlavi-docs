@@ -8,9 +8,9 @@ Hlavi's AI agent can automatically complete tasks on your kanban board.
 
 ## What is Agent Mode?
 
-Agent mode allows you to hand off tickets to an AI agent that will:
+Agent mode allows you to hand off tasks to an AI agent that will:
 
-1. **Analyze** the ticket requirements
+1. **Analyze** the task requirements
 2. **Plan** acceptance criteria if not provided
 3. **Execute** the required changes
 4. **Verify** completion
@@ -46,7 +46,7 @@ In unattended mode, the agent executes the full plan automatically.
 **Workflow:**
 1. Agent generates a plan
 2. Agent executes all steps
-3. Agent moves ticket to Review
+3. Agent moves task to Review
 4. User reviews final result
 
 ## Board Integration
@@ -62,18 +62,18 @@ Configure columns to trigger agent execution:
 }
 ```
 
-When a ticket moves to this column, the agent automatically starts working on it.
+When a task moves to this column, the agent automatically starts working on it.
 
 ## Task Rejection
 
 If the agent's work isn't acceptable:
 
-1. Move the ticket back to "In Progress"
+1. Move the task back to "In Progress"
 2. Add a rejection reason
 3. The agent will read the feedback and retry
 
 ```bash
-hlavi tickets edit HLA1 --rejection "Tests are failing"
+hlavi tasks edit HLA1 --rejection "Tests are failing"
 ```
 
 ## Limitations

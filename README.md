@@ -62,7 +62,7 @@ docs/
 │   └── configuration.md
 ├── cli/
 │   ├── commands.md
-│   ├── tickets.md
+│   ├── tasks.md
 │   └── board.md
 ├── agent/
 │   ├── overview.md

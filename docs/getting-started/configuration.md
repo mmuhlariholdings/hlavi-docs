@@ -16,13 +16,13 @@ The default board configuration includes these columns:
 
 | Column | Status | Description |
 |--------|--------|-------------|
-| New | `new` | Newly created tickets |
+| New | `new` | Newly created tasks |
 | Open | `open` | Ready to be worked on |
 | In Progress | `in_progress` | Currently being worked on |
 | Pending | `pending` | Waiting for something |
 | Review | `review` | Ready for review |
 | Done | `done` | Completed work |
-| Closed | `closed` | Archived tickets |
+| Closed | `closed` | Archived tasks |
 
 ### Customizing Columns
 
@@ -96,7 +96,7 @@ Add to your project's `.gitignore`:
 .hlavi/*.db-*
 ```
 
-This allows you to version control your tickets while ignoring local cache files.
+This allows you to version control your tasks while ignoring local cache files.
 
 ## Next Steps
 

@@ -20,52 +20,52 @@ This creates a `.hlavi/` directory with the following structure:
 ```
 .hlavi/
 ├── board.json          # Board configuration
-├── tickets/            # Ticket storage
+├── tasks/              # Task storage
 └── .gitignore         # Git ignore rules
 ```
 
-## Create Your First Ticket
+## Create Your First Task
 
-Create a ticket with a title:
+Create a task with a title:
 
 ```bash
-hlavi tickets create "Implement user authentication"
+hlavi tasks create "Implement user authentication"
 ```
 
 You'll see output like:
 
 ```
-✓ Created ticket HLA1
+✓ Created task HLA1
 ```
 
-## Add Details to Your Ticket
+## Add Details to Your Task
 
 Add a description:
 
 ```bash
-hlavi tickets edit HLA1 -d "Add JWT-based authentication with login and logout"
+hlavi tasks edit HLA1 -d "Add JWT-based authentication with login and logout"
 ```
 
 Add acceptance criteria:
 
 ```bash
-hlavi tickets edit HLA1 --ac "User can log in with email and password"
-hlavi tickets edit HLA1 --ac "User can log out"
-hlavi tickets edit HLA1 --ac "JWT token expires after 24 hours"
+hlavi tasks edit HLA1 --ac "User can log in with email and password"
+hlavi tasks edit HLA1 --ac "User can log out"
+hlavi tasks edit HLA1 --ac "JWT token expires after 24 hours"
 ```
 
-## View Your Tickets
+## View Your Tasks
 
-List all tickets:
+List all tasks:
 
 ```bash
-hlavi tickets list
+hlavi tasks list
 ```
 
-View detailed information about a ticket:
+View detailed information about a task:
 
 ```bash
-hlavi tickets show HLA1
+hlavi tasks show HLA1
 ```
 
 ## What's Next?

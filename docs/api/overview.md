@@ -47,18 +47,18 @@ See the [Endpoints Reference](./endpoints.md) for complete API documentation.
 
 ## Quick Example
 
-List all tickets:
+List all tasks:
 
 ```bash
-curl http://localhost:3000/api/v1/tickets
+curl http://localhost:3000/api/v1/tasks
 ```
 
-Create a ticket:
+Create a task:
 
 ```bash
-curl -X POST http://localhost:3000/api/v1/tickets \
+curl -X POST http://localhost:3000/api/v1/tasks \
   -H "Content-Type: application/json" \
-  -d '{"title": "New ticket", "description": "Description here"}'
+  -d '{"title": "New task", "description": "Description here"}'
 ```
 
 ## Next Steps
