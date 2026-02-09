@@ -352,3 +352,55 @@ View agent execution history (Coming soon).
 ```bash
 hlavi agent history
 ```
+
+## hlavi timeline
+
+View tickets in a timeline/Gantt chart view showing start and end dates.
+
+```bash
+hlavi timeline
+```
+
+**What it shows:**
+- Visual timeline of all tickets with dates
+- Horizontal bars representing ticket duration
+- Date scale showing the overall range
+- Tickets sorted by start date
+- List of tickets without dates
+
+**Example:**
+
+```bash
+$ hlavi timeline
+
+Timeline View
+────────────────────────────────────────────────────────────────────────────────
+Range: 2024-02-01 to 2024-02-20
+
+             02/01                                               02/20
+             ────────────────────────────────────────────────────────────
+HLA1     ┣━━━━━━━━━━┫                                                 Design authentication system
+HLA2           ┣━━━━━━━━━━━━━━━━━━━━┫                                 Implement user login
+HLA3                           ┣━━━━━━━━━━━━━━━━━━━━┫                 Add password reset
+HLA4                                              ┣━━━━━━━━━━━━━━━━┫  Deploy to production
+             ────────────────────────────────────────────────────────────
+
+Legend:
+  ┣ Start date
+  ━ Duration
+  ┫ End date
+
+Tickets without dates:
+  HLA5 - Future task without dates
+```
+
+**Key features:**
+- Tickets with both start and end dates show full bars
+- Tickets with only start date show a point marker
+- Tickets with only end date show a point marker
+- Timeline automatically scales to fit all dated tickets
+- Tickets without any dates are listed separately
+
+:::tip Project Planning
+Use `hlavi timeline` to visualize your project schedule and identify overlapping work or gaps in your timeline.
+:::
