@@ -7,8 +7,8 @@ const config: Config = {
   tagline: 'CLI-based kanban task management with AI agent support',
   favicon: 'img/favicon.ico',
 
-  url: 'https://mmuhlariholdings.github.io',
-  baseUrl: '/hlavi-docs/',
+  url: 'https://docs.hlavi.mmuhlariholdings.co.za',
+  baseUrl: '/',
 
   organizationName: 'mmuhlariholdings',
   projectName: 'hlavi-docs',
@@ -58,7 +58,7 @@ const config: Config = {
           label: 'Documentation',
         },
         {
-          href: 'https://hlavi.com',
+          href: 'https://hlavi.mmuhlariholdings.co.za',
           label: 'Website',
           position: 'right',
         },
@@ -107,7 +107,7 @@ const config: Config = {
           items: [
             {
               label: 'Website',
-              href: 'https://hlavi.com',
+              href: 'https://hlavi.mmuhlariholdings.co.za',
             },
             {
               label: 'M Muhlari Holdings (Pty) Ltd',
