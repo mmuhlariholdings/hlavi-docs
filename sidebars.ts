@@ -16,7 +16,8 @@ const sidebars: SidebarsConfig = {
       label: 'CLI Reference',
       items: [
         'cli/commands',
-        'cli/tickets',
+        'cli/tasks',
+        'cli/timeline',
         'cli/board',
         'cli/agent',
       ],
