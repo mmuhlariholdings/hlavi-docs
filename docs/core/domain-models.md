@@ -357,7 +357,7 @@ let result = TaskId::from_str("INVALID123");
 // Returns: Err(HlaviError::InvalidTaskId("INVALID123"))
 
 // Task not found
-let result = storage.load_task(&ticket_id).await;
+let result = storage.load_task(&task_id).await;
 // Returns: Err(HlaviError::TaskNotFound("HLA999"))
 ```
 
