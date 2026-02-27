@@ -8,9 +8,6 @@
 .docusaurus
 .cache-loader
 
-# Hlavi
-.hlavi/
-
 # Misc
 .DS_Store
 .env.local
